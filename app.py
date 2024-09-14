@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, send_file
 import numpy as np
 from PIL import Image
-from image import to_gauss_filter
+from gauss_filter import to_gauss_filter
 import io
 
 app = Flask(__name__)
