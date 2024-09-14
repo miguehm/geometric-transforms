@@ -62,9 +62,6 @@ def upload_image():
     except ValueError:
         return jsonify({'error': 'El filtro Gaussiano debe ser entero'}), 400
 
-    # if gauss_size % 2 == 0:
-    #     return jsonify({'error': 'El filtro Gaussiano debe ser impar'}), 400
-
     # Open the image file
     image = Image.open(file)
 
@@ -72,14 +69,6 @@ def upload_image():
     image = np.array(image)
 
     processed_image = gaussian_blur(image, elements)
-
-    # Save the processed image to a BytesIO object
-    # TODO:
-    # - Convertir a un formato especifico dependiendo de la entrada
-
-    # img_io = io.BytesIO()
-    # processed_image.save(img_io, format='JPEG')
-    # img_io.seek(0)
 
     img_io = io.BytesIO()
     Image.fromarray(processed_image).save(img_io, 'JPEG')

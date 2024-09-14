@@ -35,27 +35,6 @@ def gauss_array(elements: int):
     # ya esta normalizado
     return data
 
-    # if elements > 63:
-    #     elements = 63
-    #     print(
-    #         f'Number of elements must be less than 64. Changed to {elements}')
-
-    # if elements % 2 == 0:
-    #     elements -= 1
-    #     print(f'Number of elements must be even. Changed to {elements}')
-
-    # n = elements - 1
-    # nfactorial = factorial(n)
-    #
-    # arr = np.zeros(elements).astype(int)
-    # for i in range(elements):
-    #     arr[i] = nfactorial / (factorial(i) * factorial(n - i))
-    #
-    # return {
-    #     'array': arr,
-    #     'total': int(np.sum(arr))
-    # }
-
 
 if __name__ == '__main__':
     elements = input('Enter the number of elements: ')
