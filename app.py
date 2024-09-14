@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, send_file
 import numpy as np
 from PIL import Image
-from gauss_filter import to_gauss_filter
+from gaussian_blur import gaussian_blur
 import io
 
 app = Flask(__name__)
@@ -50,30 +50,39 @@ def calculate():
 def upload_image():
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
-
     file = request.files['file']
+
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    gauss_size = request.form.get('gauss_size', 1)
+    elements = request.form.get('gauss_size', 1)
+
     try:
-        gauss_size = int(gauss_size)
+        elements = int(elements)
     except ValueError:
         return jsonify({'error': 'El filtro Gaussiano debe ser entero'}), 400
 
-    if gauss_size % 2 == 0:
-        return jsonify({'error': 'El filtro Gaussiano debe ser impar'}), 400
+    # if gauss_size % 2 == 0:
+    #     return jsonify({'error': 'El filtro Gaussiano debe ser impar'}), 400
 
     # Open the image file
     image = Image.open(file)
 
-    processed_image = to_gauss_filter(image, gauss_size)
+    # pasar a array de numpy
+    image = np.array(image)
+
+    processed_image = gaussian_blur(image, elements)
 
     # Save the processed image to a BytesIO object
     # TODO:
     # - Convertir a un formato especifico dependiendo de la entrada
+
+    # img_io = io.BytesIO()
+    # processed_image.save(img_io, format='JPEG')
+    # img_io.seek(0)
+
     img_io = io.BytesIO()
-    processed_image.save(img_io, format='JPEG')
+    Image.fromarray(processed_image).save(img_io, 'JPEG')
     img_io.seek(0)
 
     # Return the image
