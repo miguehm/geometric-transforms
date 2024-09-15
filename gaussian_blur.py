@@ -5,22 +5,9 @@ from gauss_filter import gauss_filter
 
 
 def gaussian_blur(image, elements: int):
-    # elements = input('Enter the number of elements: ')
-    # elements = int(elements)
-    DATA = gauss_array(elements)
+    ARR = gauss_array(elements)
 
-    # print(f'Number of elements: {DATA['elements']}')
-    # print(f'Array: {DATA['array']}')
-    # print(f'Anchor position: {DATA['anchor_pos']}')
-    # print(f'Array before anchor: {DATA['arr_before_anchor']}')
-    # print(f'Array after anchor: {DATA['arr_after_anchor']}')
-    # print(f'Left padding: {DATA['left_padding']}')
-    # print(f'Right padding: {DATA['right_padding']}')
-    # print(f'Top padding: {DATA['top_padding']}')
-    # print(f'Bottom padding: {DATA['bottom_padding']}')
-
-    # read an image
-    # image = cv2.imread('image.jpg')
+    # split image
     B, G, R = cv2.split(image)
 
     # array size
@@ -28,9 +15,9 @@ def gaussian_blur(image, elements: int):
 
     print('Start processing...')
     with multiprocessing.Pool(processes=3) as pool:
-        argumentos = [(B, DATA),
-                      (G, DATA),
-                      (R, DATA)]
+        argumentos = [(B, ARR),
+                      (G, ARR),
+                      (R, ARR)]
         b, g, r = pool.starmap(gauss_filter, argumentos)
 
     print('End processing...')

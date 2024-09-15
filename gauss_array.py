@@ -7,33 +7,10 @@ def gauss_array(elements: int):
         print(
             f'Elements must be greater than 0. Changed to {elements}')
 
+    # ya esta normalizado
     arr = cv2.getGaussianKernel(elements, -1)
 
-    # pasar vector vector columna a vector fila
-    ARR = arr.T[0]
-
-    ANCHOR_POS = (elements - 1) // 2
-    ARR_BEFORE_ANCHOR = ARR[:ANCHOR_POS]
-    ARR_AFTER_ANCHOR = ARR[ANCHOR_POS + 1:]
-    LEFT_PADDING = len(ARR_BEFORE_ANCHOR)
-    RIGHT_PADDING = len(ARR_AFTER_ANCHOR)
-    TOP_PADDING = LEFT_PADDING
-    BOTTOM_PADDING = RIGHT_PADDING
-
-    data = {
-        'elements': elements,
-        'array': ARR,
-        'anchor_pos': ANCHOR_POS,
-        'arr_before_anchor': ARR_BEFORE_ANCHOR,
-        'arr_after_anchor': ARR_AFTER_ANCHOR,
-        'left_padding': LEFT_PADDING,
-        'right_padding': RIGHT_PADDING,
-        'top_padding': TOP_PADDING,
-        'bottom_padding': BOTTOM_PADDING
-    }
-
-    # ya esta normalizado
-    return data
+    return arr
 
 
 if __name__ == '__main__':
