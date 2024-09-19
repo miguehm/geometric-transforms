@@ -32,7 +32,7 @@ if __name__ == "__main__":
     from PIL import Image
     import numpy as np
 
-    image = Image.open('image.jpg')
+    image = Image.open('spiral.jpg')
 
     # pasar a array de numpy
     image = np.array(image)
