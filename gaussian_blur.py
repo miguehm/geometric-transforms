@@ -4,14 +4,17 @@ from gauss_array import gauss_array
 from gauss_filter import gauss_filter
 
 
-def gaussian_blur(image, elements: int):
+def gaussian_blur(image, elements: int, single_channel=False):
     ARR = gauss_array(elements)
+
+    if single_channel:
+        return gauss_filter(image, ARR)
 
     # split image
     B, G, R = cv2.split(image)
 
     # array size
-    rows, cols = B.shape
+    # rows, cols = B.shape
 
     print('Start processing...')
     with multiprocessing.Pool(processes=3) as pool:
