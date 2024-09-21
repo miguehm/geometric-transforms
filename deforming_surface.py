@@ -3,6 +3,7 @@ from derivative_filter import derivative_filter, normalize_to_uint8
 from gaussian_blur import gaussian_blur
 import cv2
 import multiprocessing
+import numpy as np
 
 
 def map_deforming_surface(surface, a, blur_size=41, visualize=False):
@@ -70,9 +71,32 @@ def deforming_surface_filter(channel, map_x, map_y):
     return output
 
 
+def deforming_surface_spiral(image, step=10, linewidth=30, a=41):
+    # create a spiral matrix
+    step = 10
+    linewidth = 30
+
+    spiral_matrix = generate_spiral_matrix(
+        width=1024, height=1024, step=step, linewidth=linewidth)
+
+    map_x, map_y = map_deforming_surface(
+        spiral_matrix, blur_size=41, a=a)
+
+    B, G, R = cv2.split(image)
+
+    with multiprocessing.Pool(processes=3) as pool:
+        argumentos = [(B, map_x, map_y),
+                      (G, map_x, map_y),
+                      (R, map_x, map_y)]
+        b, g, r = pool.starmap(deforming_surface_filter, argumentos)
+
+    output = cv2.merge((b, g, r))
+
+    return output
+
+
 if __name__ == '__main__':
     from PIL import Image
-    import numpy as np
     import matplotlib.pyplot as plt
 
     image = Image.open('image.jpg')
@@ -88,25 +112,7 @@ if __name__ == '__main__':
     elif image.shape[2] == 3:
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    # create a spiral matrix
-    step = 10
-    linewidth = 30
-
-    spiral_matrix = generate_spiral_matrix(
-        width=1024, height=1024, step=step, linewidth=linewidth)
-
-    map_x, map_y = map_deforming_surface(
-        spiral_matrix, blur_size=60, a=40, visualize=True)
-
-    B, G, R = cv2.split(image)
-
-    with multiprocessing.Pool(processes=3) as pool:
-        argumentos = [(B, map_x, map_y),
-                      (G, map_x, map_y),
-                      (R, map_x, map_y)]
-        b, g, r = pool.starmap(deforming_surface_filter, argumentos)
-
-    output = cv2.merge((b, g, r))
+    output = deforming_surface_spiral(image, a=20)
 
     cv2.imshow('Output', output)
 

@@ -2,7 +2,9 @@ from flask import Flask, jsonify, request, send_file
 import numpy as np
 from PIL import Image
 from gaussian_blur import gaussian_blur
+from deforming_surface import deforming_surface_spiral
 import io
+
 
 app = Flask(__name__)
 
@@ -69,6 +71,50 @@ def upload_image():
     image = np.array(image)
 
     processed_image = gaussian_blur(image, elements)
+
+    img_io = io.BytesIO()
+    Image.fromarray(processed_image).save(img_io, 'JPEG')
+    img_io.seek(0)
+
+    # Return the image
+    return send_file(
+        img_io,
+        mimetype='image/jpeg',
+        as_attachment=True,
+        download_name='processed_image.jpg')
+
+
+@app.route('/image_to_spiral_transform', methods=['POST'])
+def image_to_spiral_transform():
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+    file = request.files['file']
+
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
+    step = request.form.get('step', 10)
+    line_width = request.form.get('line-width', 30)
+    a = request.form.get('a', 41)
+
+    try:
+        step = int(step)
+        line_width = int(line_width)
+        a = int(a)
+
+        # Open the image file
+        image = Image.open(file)
+
+        # pasar a array de numpy
+        image = np.array(image)
+
+        if (image.shape[0] != image.shape[1]):
+            raise ValueError('La imagen debe ser cuadrada')
+
+    except ValueError:
+        return jsonify({'error': 'Los valores deben ser enteros y la imagen cuadrada'}), 400
+
+    processed_image = deforming_surface_spiral(image, step, line_width, a)
 
     img_io = io.BytesIO()
     Image.fromarray(processed_image).save(img_io, 'JPEG')
