@@ -35,7 +35,7 @@ if __name__ == "__main__":
     from PIL import Image
     import numpy as np
 
-    image = Image.open('spiral.jpg')
+    image = Image.open('image.jpg')
 
     # pasar a array de numpy
     image = np.array(image)
@@ -49,5 +49,10 @@ if __name__ == "__main__":
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
     result = gaussian_blur(image, int(input('Enter the number of elements: ')))
-    cv2.imwrite('processed_image.jpg', result)
-    print('Image saved as processed_image.jpg')
+    # cv2.imwrite('processed_image.jpg', result)
+    # print('Image saved as processed_image.jpg')
+    cv2.imshow('Gaussian Blur', result)
+
+    while True:
+        if cv2.waitKey(1) & 0xFF == 27:
+            break

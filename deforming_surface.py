@@ -71,7 +71,7 @@ def deforming_surface_filter(channel, map_x, map_y):
     return output
 
 
-def deforming_surface_spiral(image, step=10, linewidth=30, a=41):
+def deforming_surface_spiral(image, step=10, linewidth=30, a=41, visualize=False):
     # create a spiral matrix
     # step = 10
     # linewidth = 30
@@ -82,7 +82,7 @@ def deforming_surface_spiral(image, step=10, linewidth=30, a=41):
         width=width, height=height, step=step, linewidth=linewidth)
 
     map_x, map_y = map_deforming_surface(
-        spiral_matrix, blur_size=41, a=a)
+        spiral_matrix, blur_size=41, a=a, visualize=visualize)
 
     B, G, R = cv2.split(image)
 
@@ -114,7 +114,8 @@ if __name__ == '__main__':
     elif image.shape[2] == 3:
         image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
 
-    output = deforming_surface_spiral(image, a=20)
+    output = deforming_surface_spiral(
+        image, a=40, step=20, linewidth=15, visualize=True)
 
     cv2.imshow('Output', output)
 

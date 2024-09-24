@@ -3,7 +3,7 @@ import numpy as np
 
 
 def crystal_transform(image, block_size=60):
-    height, width, channels = image.shape
+    height, width, _ = image.shape
 
     # Crear las coordenadas x, y
     x = np.arange(width)
@@ -29,10 +29,10 @@ def crystal_transform(image, block_size=60):
 
 if __name__ == '__main__':
     # Cargar la imagen
-    image = cv2.imread('./contraste-fuerte1.jpg')
+    image = cv2.imread('./image.jpg')
 
     # Aplicar la transformación
-    transformed_image = crystal_transform(image, block_size=20)
+    transformed_image = crystal_transform(image, block_size=60)
 
     # Mostrar la imagen original y la transformada
     cv2.imshow('Original Image', image)
