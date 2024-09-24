@@ -319,43 +319,45 @@ El parámetro `block_size` controla el tamaño de los bloques de píxeles que se
 
 ## Suavisado Gaussiano
 
-![[image.jpg]]
+![image](https://github.com/user-attachments/assets/f03058d8-4f7e-4c35-89a4-95c279bd3524)
 
 > Imagen original
 
-![[Pasted image 20240924114141.png]]
+![Pasted image 20240924114141](https://github.com/user-attachments/assets/809032f9-ae1c-41c5-b203-d4bb8be853a9)
 
 > Kernel gaussiano de 41x41
 
-![[Pasted image 20240924114332.png]]
+
+![Pasted image 20240924114332](https://github.com/user-attachments/assets/83ff4c27-c281-43f3-9f30-d3d97d977042)
 
 > Kernel gaussiano de 500x500
 
 ## Superficie Deformante
 
-![[Pasted image 20240924114510.png]]
+![Pasted image 20240924114510](https://github.com/user-attachments/assets/564feee2-b615-4130-a280-89e100969653)
 
 > a = 20
 
-![[Pasted image 20240924114558.png]]
+![Pasted image 20240924114558](https://github.com/user-attachments/assets/35517a63-0fb6-4aa5-aef0-a46fa70678fc)
 
 > a = 60
 
-![[Pasted image 20240924114728.png]]
+![Pasted image 20240924114728](https://github.com/user-attachments/assets/e4e547fb-2208-41f4-b876-1a2932146970)
 
 > a = 40, spiral_step = 20, linewidth = 15
 
 ## Efecto cristal
 
-![[Pasted image 20240924114955.png]]
+
+![Pasted image 20240924114955](https://github.com/user-attachments/assets/2ed4fad4-0380-4d8d-9a1f-b6b15d5ec208)
 
 > block_size = 20
 
-![[Pasted image 20240924115035.png]]
+![Pasted image 20240924115035](https://github.com/user-attachments/assets/d5a62e2f-fbb4-4333-9f56-9fb6aa55dd3e)
 
 > block_size = 60
 
-# Conclusiones
+# Conclusión
 
 A lo largo de este estudio, hemos explorado tres transformaciones geométricas clave que pueden aplicarse a las imágenes utilizando la biblioteca OpenCV: el suavizado gaussiano, la superficie deformante y el efecto cristal.
 
