@@ -357,10 +357,6 @@ El parámetro `block_size` controla el tamaño de los bloques de píxeles que se
 
 # Conclusiones
 
-[Secciones anteriores]
-
-## Conclusión
-
 A lo largo de este estudio, hemos explorado tres transformaciones geométricas clave que pueden aplicarse a las imágenes utilizando la biblioteca OpenCV: el suavizado gaussiano, la superficie deformante y el efecto cristal.
 
 El suavizado gaussiano ha demostrado ser una técnica eficaz para reducir el ruido y suavizar los detalles de una imagen, preservando al mismo tiempo rasgos importantes. La implementación paralela de esta transformación aprovecha los múltiples núcleos de la CPU, lo que mejora significativamente el rendimiento.
