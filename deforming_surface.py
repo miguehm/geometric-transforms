@@ -72,10 +72,6 @@ def deforming_surface_filter(channel, map_x, map_y):
 
 
 def deforming_surface_spiral(image, step=10, linewidth=30, a=41, visualize=False):
-    # create a spiral matrix
-    # step = 10
-    # linewidth = 30
-
     height, width, _ = image.shape
 
     spiral_matrix = generate_spiral_matrix(

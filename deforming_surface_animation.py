@@ -32,7 +32,7 @@ def add_text_to_image(image, text):
     return image
 
 
-def spiral_animation():
+def spiral_animation(begin=-20, end=20, duration=10):
     image = Image.open('image.jpg')
     image = np.array(image)
 
@@ -44,22 +44,19 @@ def spiral_animation():
 
     images = []
 
-    for i in range(1, 60):
+    for i in range(begin, end+1):
         output = deforming_surface_spiral(image, a=i)
         output = add_text_to_image(output, f'a = {i}')
         output_rgb = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         images.append(output_rgb)
 
-    for i in range(60, 0, -1):
-        output = deforming_surface_spiral(image, a=i)
-        output = add_text_to_image(output, f'a = {i}')
-        output_rgb = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
-        images.append(output_rgb)
+    total_frames = abs(begin) + abs(end)
+    frame_duration = duration / total_frames
 
-    imageio.mimsave('anim_spiral.gif', images, duration=0.5)
+    imageio.mimsave('anim_spiral.gif', images, duration=frame_duration)
 
 
-def crystal_animation():
+def crystal_animation(begin=1, end=20, duration=10):
     image = Image.open('image.jpg')
     image = np.array(image)
 
@@ -71,21 +68,18 @@ def crystal_animation():
 
     images = []
 
-    for i in range(1, 60):
+    for i in range(begin, end+1):
         output = crystal_transform(image, block_size=i)
         output = add_text_to_image(output, f'block_size = {i}')
         output_rgb = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
         images.append(output_rgb)
 
-    for i in range(60, 0, -1):
-        output = crystal_transform(image, block_size=i)
-        output = add_text_to_image(output, f'block_size = {i}')
-        output_rgb = cv2.cvtColor(output, cv2.COLOR_BGR2RGB)
-        images.append(output_rgb)
+    total_frames = abs(begin) + abs(end)
+    frame_duration = duration / total_frames
 
-    imageio.mimsave('anim_cristal.gif', images, duration=0.5)
+    imageio.mimsave('anim_cristal.gif', images, duration=frame_duration)
 
 
 if __name__ == '__main__':
-    # spiral_animation()
-    crystal_animation()
+    spiral_animation(begin=-60, end=60, duration=10)
+    # crystal_animation(begin=1, end=60, duration=10)
